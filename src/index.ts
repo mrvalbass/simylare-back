@@ -11,15 +11,15 @@ connectDB();
 const app: Application = express();
 const port = 8000;
 
-const corsOptions = {
-  origin: [
-    "https://www.simylare.com",
-    "https://simylare.vercel.app",
-    "http://localhost:3000/",
-  ],
-};
+// const corsOptions = {
+//   origin: [
+//     "https://www.simylare.com",
+//     "https://simylare.vercel.app",
+//     "http://localhost:3000/",
+//   ],
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
