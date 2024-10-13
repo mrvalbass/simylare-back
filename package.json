@@ -6,11 +6,6 @@
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts"
   },
-  "pre-commit": [
-    "check",
-    "build",
-    "add-build"
-  ],
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
