@@ -4,7 +4,8 @@
     "add-build": "git add dist",
     "build": "rimraf dist && tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev src/index.ts"
+    "dev": "ts-node-dev src/index.ts",
+    "code_generator": "ts-node-dev src/code-generator.ts"
   },
   "pre-commit": [
     "check",
