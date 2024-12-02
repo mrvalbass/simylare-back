@@ -14,9 +14,9 @@ const Etsy_1 = require("../../../models/Etsy");
 function mwSaveAccessToken(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log("coucou");
-            const newEtsy = new Etsy_1.Etsy({ accessToken: req.accessToken });
-            newEtsy.save();
+            const newEtsy = new Etsy_1.Etsy({ etsy_access_token: req.accessToken });
+            const token = newEtsy.save();
+            res.status(200).json({ token });
         }
         catch (e) {
             console.error(e);
