@@ -11,10 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mwGetAccessToken = mwGetAccessToken;
 const __1 = require("..");
-function mwGetAccessToken(req, res) {
+function mwGetAccessToken(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { code } = req.query;
-        console.log(req.query);
         try {
             const getTokenOptions = {
                 method: "POST",
@@ -34,6 +33,7 @@ function mwGetAccessToken(req, res) {
             console.error(e);
             res.status(500).send(e);
         }
+        next();
     });
 }
 //# sourceMappingURL=getAccessToken.js.map

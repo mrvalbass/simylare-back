@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const EtsySchema = new mongoose.Schema({
-  access_token: String,
+  etsy_access_token: String,
 });
 
-export const Etsy = mongoose.model("etsy", EtsySchema);
+export const Etsy = mongoose.model("tokens", EtsySchema);

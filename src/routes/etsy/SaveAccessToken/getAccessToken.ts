@@ -1,11 +1,13 @@
-import type { Response } from "express";
+import type { NextFunction, Response } from "express";
 import { codeVerifier } from "..";
 import { AccessTokenRequest } from ".";
 
-export async function mwGetAccessToken(req: AccessTokenRequest, res: Response) {
+export async function mwGetAccessToken(
+  req: AccessTokenRequest,
+  res: Response,
+  next: NextFunction
+) {
   const { code } = req.query;
-  console.log(req.query);
-
   try {
     const getTokenOptions = {
       method: "POST",
@@ -27,4 +29,5 @@ export async function mwGetAccessToken(req: AccessTokenRequest, res: Response) {
     console.error(e);
     res.status(500).send(e);
   }
+  next();
 }
