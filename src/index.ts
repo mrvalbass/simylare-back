@@ -95,12 +95,13 @@ app.get("/oauth/redirect", async (req, res) => {
       },
     };
     const shopData = await fetch(
-      "https://api.etsy.com/v3/application/shops?shop_name=Simylare",
+      `https://api.etsy.com/v3/application/shops/${process.env.SYMILARE_SHOP_ID}/listings/active`,
       getDataOptions
     ).then((r) => r.json());
     console.log(shopData);
 
     res.json(shopData.data);
+    res.redirect("https://simylare.vercel.app");
   } catch (error) {
     console.error(error.response?.data || error.message);
     res.status(500).send("Error during OAuth flow");
