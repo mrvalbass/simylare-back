@@ -1,5 +1,5 @@
 import express from "express";
-import type { Application, Request, Response } from "express";
+import type { Application } from "express";
 import dotenv from "dotenv";
 import crypto from "crypto";
 import connectDB from "./db/connection";
@@ -94,8 +94,10 @@ app.get("/oauth/redirect", async (req, res) => {
         "x-api-key": process.env.CLIENT_ID,
       },
     };
+    console.log(process.env.SIMYLARE_SHOP_ID);
+
     const shopData = await fetch(
-      `https://api.etsy.com/v3/application/shops/${process.env.SYMILARE_SHOP_ID}/listings/active`,
+      `https://api.etsy.com/v3/application/shops/${process.env.SIMYLARE_SHOP_ID}/listings?state=active`,
       getDataOptions
     ).then((r) => r.json());
     console.log(shopData);
