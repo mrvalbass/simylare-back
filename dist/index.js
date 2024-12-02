@@ -32,12 +32,28 @@ const port = 8000;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
+app.get("/ping", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "x-api-key": process.env.CLIENT_ID,
+        },
+    };
+    const response = yield fetch("https://api.etsy.com/v3/application/openapi-ping", requestOptions);
+    if (response.ok) {
+        const data = yield response.json();
+        res.send(data);
+    }
+    else {
+        res.send("oops");
+    }
+}));
 const state = crypto_1.default.randomBytes(16).toString("hex");
 const codeVerifier = crypto_1.default.randomBytes(32).toString("base64url");
 const sha256 = (buffer) => crypto_1.default.createHash("sha256").update(buffer).digest("base64url");
 const codeChallenge = sha256(codeVerifier);
 app.get("/auth/etsy", (req, res) => {
-    const url = `https://www.etsy.com/oauth/connect?response_type=code&redirect_uri=${process.env.REDIRECT_URI}&scope=shops_r&client_id=${process.env.CLIENT_ID}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+    const url = `https://www.etsy.com/oauth/connect?response_type=code&redirect_uri=${process.env.REDIRECT_URI}&scope=listings_r&client_id=${process.env.CLIENT_ID}&state=${state}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
     res.redirect(url);
 });
 app.get("/oauth/redirect", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
