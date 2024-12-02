@@ -86,7 +86,7 @@ app.get("/oauth/redirect", async (req, res) => {
     ).then((r) => r.json());
     console.log(response);
 
-    const accessToken = response.data.access_token;
+    const accessToken = response.access_token;
     console.log("Access Token:", accessToken);
 
     // Use the access token to fetch shop data

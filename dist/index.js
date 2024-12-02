@@ -79,7 +79,7 @@ app.get("/oauth/redirect", (req, res) => __awaiter(void 0, void 0, void 0, funct
         };
         const response = yield fetch("https://api.etsy.com/v3/public/oauth/token", getTokenOptions).then((r) => r.json());
         console.log(response);
-        const accessToken = response.data.access_token;
+        const accessToken = response.access_token;
         console.log("Access Token:", accessToken);
         // Use the access token to fetch shop data
         const getDataOptions = {
