@@ -87,7 +87,7 @@ app.get("/oauth/redirect", (req, res) => __awaiter(void 0, void 0, void 0, funct
                 "x-api-key": process.env.CLIENT_ID,
             },
         };
-        const shopData = yield fetch("https://api.etsy.com/v3/application/shops/Simylare", getDataOptions).then((r) => r.json());
+        const shopData = yield fetch("https://api.etsy.com/v3/application/shops?shop_name=Simylare", getDataOptions).then((r) => r.json());
         console.log(shopData);
         res.json(shopData.data);
     }

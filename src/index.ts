@@ -95,7 +95,7 @@ app.get("/oauth/redirect", async (req, res) => {
       },
     };
     const shopData = await fetch(
-      "https://api.etsy.com/v3/application/shops/Simylare",
+      "https://api.etsy.com/v3/application/shops?shop_name=Simylare",
       getDataOptions
     ).then((r) => r.json());
     console.log(shopData);
