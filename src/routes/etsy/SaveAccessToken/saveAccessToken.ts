@@ -7,8 +7,12 @@ export async function mwSaveAccessToken(
   res: Response
 ) {
   try {
-    const newEtsy = new Etsy({ etsy_access_token: req.accessToken });
-    const token = await newEtsy.save();
+    const accessToken = await Etsy.find({});
+    if (accessToken.length !== 0) {
+      Etsy.deleteMany({});
+    }
+    const newAccessToken = new Etsy({ etsy_access_token: req.accessToken });
+    const token = await newAccessToken.save();
     res.status(200).json({ token });
   } catch (e: unknown) {
     console.error(e);
