@@ -83,6 +83,7 @@ app.get("/oauth/redirect", async (req, res) => {
       "https://api.etsy.com/v3/public/oauth/token",
       getTokenOptions
     ).then((r) => r.json());
+    console.log(response);
 
     const accessToken = response.data.access_token;
     console.log("Access Token:", accessToken);
@@ -96,6 +97,7 @@ app.get("/oauth/redirect", async (req, res) => {
       "https://api.etsy.com/v3/application/shops",
       getDataOptions
     ).then((r) => r.json());
+    console.log(shopData);
 
     res.json(shopData.data);
   } catch (error) {

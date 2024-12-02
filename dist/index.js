@@ -77,6 +77,7 @@ app.get("/oauth/redirect", (req, res) => __awaiter(void 0, void 0, void 0, funct
             }),
         };
         const response = yield fetch("https://api.etsy.com/v3/public/oauth/token", getTokenOptions).then((r) => r.json());
+        console.log(response);
         const accessToken = response.data.access_token;
         console.log("Access Token:", accessToken);
         // Use the access token to fetch shop data
@@ -85,6 +86,7 @@ app.get("/oauth/redirect", (req, res) => __awaiter(void 0, void 0, void 0, funct
             headers: { Authorization: `Bearer ${accessToken}` },
         };
         const shopData = yield fetch("https://api.etsy.com/v3/application/shops", getDataOptions).then((r) => r.json());
+        console.log(shopData);
         res.json(shopData.data);
     }
     catch (error) {
