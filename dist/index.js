@@ -88,10 +88,9 @@ app.get("/oauth/redirect", (req, res) => __awaiter(void 0, void 0, void 0, funct
             },
         };
         console.log(process.env.SIMYLARE_SHOP_ID);
-        const shopData = yield fetch(`https://api.etsy.com/v3/application/shops/${process.env.SIMYLARE_SHOP_ID}/listings?state=active`, getDataOptions).then((r) => r.json());
+        const shopData = yield fetch(`https://api.etsy.com/v3/application/shops/${process.env.SIMYLARE_SHOP_ID}/listings?state=active&includes=images,shop`, getDataOptions).then((r) => r.json());
         console.log(shopData);
         res.json(shopData.data);
-        res.redirect("https://simylare.vercel.app");
     }
     catch (error) {
         console.error(((_a = error.response) === null || _a === void 0 ? void 0 : _a.data) || error.message);
