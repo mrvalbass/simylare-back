@@ -63,6 +63,7 @@ app.get("/oauth/redirect", (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.status(400).send("Invalid state");
         return;
     }
+    console.log(code);
     try {
         // Exchange the authorization code for an access token
         const getTokenOptions = {
