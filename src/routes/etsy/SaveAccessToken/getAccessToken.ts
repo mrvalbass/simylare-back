@@ -4,7 +4,7 @@ import { AccessTokenRequest } from ".";
 
 export async function mwGetAccessToken(req: AccessTokenRequest, res: Response) {
   const { code } = req.query;
-  console.log(code);
+  console.log(req.query);
 
   try {
     const getTokenOptions = {

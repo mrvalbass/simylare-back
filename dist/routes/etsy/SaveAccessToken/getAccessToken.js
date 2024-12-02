@@ -14,7 +14,7 @@ const __1 = require("..");
 function mwGetAccessToken(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { code } = req.query;
-        console.log(code);
+        console.log(req.query);
         try {
             const getTokenOptions = {
                 method: "POST",
