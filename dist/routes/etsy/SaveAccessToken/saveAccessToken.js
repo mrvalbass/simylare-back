@@ -16,7 +16,7 @@ function mwSaveAccessToken(req, res) {
         try {
             const accessToken = yield Etsy_1.Etsy.find({});
             if (accessToken.length !== 0) {
-                Etsy_1.Etsy.deleteMany({});
+                yield Etsy_1.Etsy.deleteMany({});
             }
             const newAccessToken = new Etsy_1.Etsy({ etsy_access_token: req.accessToken });
             const token = yield newAccessToken.save();

@@ -9,7 +9,7 @@ export async function mwSaveAccessToken(
   try {
     const accessToken = await Etsy.find({});
     if (accessToken.length !== 0) {
-      Etsy.deleteMany({});
+      await Etsy.deleteMany({});
     }
     const newAccessToken = new Etsy({ etsy_access_token: req.accessToken });
     const token = await newAccessToken.save();
