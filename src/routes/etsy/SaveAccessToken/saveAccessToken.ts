@@ -1,17 +1,19 @@
 import type { Response } from "express";
 import { AccessTokenRequest } from ".";
-import { Etsy } from "../../../models/Etsy";
+import { AccessToken } from "../../../models/AccessTokens";
 
 export async function mwSaveAccessToken(
   req: AccessTokenRequest,
   res: Response
 ) {
   try {
-    const accessToken = await Etsy.find({});
+    const accessToken = await AccessToken.find({});
     if (accessToken.length !== 0) {
-      await Etsy.deleteMany({});
+      await AccessToken.deleteMany({});
     }
-    const newAccessToken = new Etsy({ etsy_access_token: req.accessToken });
+    const newAccessToken = new AccessToken({
+      etsy_access_token: req.accessToken,
+    });
     const token = await newAccessToken.save();
     res.status(200).json({ token });
   } catch (e: unknown) {

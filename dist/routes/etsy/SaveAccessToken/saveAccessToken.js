@@ -10,15 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mwSaveAccessToken = mwSaveAccessToken;
-const Etsy_1 = require("../../../models/Etsy");
+const AccessTokens_1 = require("../../../models/AccessTokens");
 function mwSaveAccessToken(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const accessToken = yield Etsy_1.Etsy.find({});
+            const accessToken = yield AccessTokens_1.AccessToken.find({});
             if (accessToken.length !== 0) {
-                yield Etsy_1.Etsy.deleteMany({});
+                yield AccessTokens_1.AccessToken.deleteMany({});
             }
-            const newAccessToken = new Etsy_1.Etsy({ etsy_access_token: req.accessToken });
+            const newAccessToken = new AccessTokens_1.AccessToken({
+                etsy_access_token: req.accessToken,
+            });
             const token = yield newAccessToken.save();
             res.status(200).json({ token });
         }
