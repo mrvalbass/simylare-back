@@ -14,7 +14,10 @@ const AccessTokens_1 = require("../../../models/AccessTokens");
 function mwGetAccessToken(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { etsy_access_token } = yield AccessTokens_1.AccessToken.findOne();
+            const { etsy_access_token, created_at, expires_in, etsy_refresh_token } = yield AccessTokens_1.AccessToken.findOne();
+            console.log(created_at);
+            // if (Date.now() - expires_in > created_at) {
+            // }
             req.accessToken = etsy_access_token;
             next();
         }

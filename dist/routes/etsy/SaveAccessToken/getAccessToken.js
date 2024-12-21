@@ -29,6 +29,7 @@ function mwGetAccessToken(req, res, next) {
             const response = yield fetch("https://api.etsy.com/v3/public/oauth/token", getTokenOptions).then((r) => r.json());
             req.accessToken = response.access_token;
             req.refreshToken = response.refresh_token;
+            req.expiresIn = response.expires_in;
         }
         catch (e) {
             console.error(e);

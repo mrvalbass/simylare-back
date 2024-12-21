@@ -15,6 +15,11 @@ export async function mwListProducts(req: ListProductsRequest, res: Response) {
       `https://api.etsy.com/v3/application/shops/${process.env.SIMYLARE_SHOP_ID}/listings?state=active&includes=images`,
       getDataOptions
     ).then((r) => r.json());
+
+    if (!shopData.results) {
+      throw new Error("No data retrieved");
+    }
+
     const productList = shopData.results
       .filter((product: Listing) => product.state === "active")
       .map((product: Listing) => ({
@@ -33,7 +38,6 @@ export async function mwListProducts(req: ListProductsRequest, res: Response) {
       }));
     res.json(productList);
   } catch (error) {
-    console.error(error.response?.data || error.message);
-    res.status(500).json({ error });
+    res.status(500).json({ error: error.message });
   }
 }

@@ -21,6 +21,7 @@ function mwSaveAccessToken(req, res) {
             const newAccessToken = new AccessTokens_1.AccessToken({
                 etsy_access_token: req.accessToken,
                 etsy_refresh_token: req.refreshToken,
+                expires_in: req.expiresIn,
             });
             const token = yield newAccessToken.save();
             res.status(200).json({ token });

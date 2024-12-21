@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.mwListProducts = mwListProducts;
 function mwListProducts(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        var _a;
         try {
             const getDataOptions = {
                 method: "GET",
@@ -22,6 +21,9 @@ function mwListProducts(req, res) {
                 },
             };
             const shopData = yield fetch(`https://api.etsy.com/v3/application/shops/${process.env.SIMYLARE_SHOP_ID}/listings?state=active&includes=images`, getDataOptions).then((r) => r.json());
+            if (!shopData.results) {
+                throw new Error("No data retrieved");
+            }
             const productList = shopData.results
                 .filter((product) => product.state === "active")
                 .map((product) => ({
@@ -39,8 +41,7 @@ function mwListProducts(req, res) {
             res.json(productList);
         }
         catch (error) {
-            console.error(((_a = error.response) === null || _a === void 0 ? void 0 : _a.data) || error.message);
-            res.status(500).json({ error });
+            res.status(500).json({ error: error.message });
         }
     });
 }
