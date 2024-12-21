@@ -25,6 +25,7 @@ export async function mwGetAccessToken(
       getTokenOptions
     ).then((r) => r.json());
     req.accessToken = response.access_token;
+    req.refreshToken = response.refresh_token;
   } catch (e: unknown) {
     console.error(e);
     res.status(500).send(e);

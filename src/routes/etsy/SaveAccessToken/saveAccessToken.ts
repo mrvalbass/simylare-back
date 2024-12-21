@@ -13,6 +13,7 @@ export async function mwSaveAccessToken(
     }
     const newAccessToken = new AccessToken({
       etsy_access_token: req.accessToken,
+      etsy_refresh_token: req.refreshToken,
     });
     const token = await newAccessToken.save();
     res.status(200).json({ token });

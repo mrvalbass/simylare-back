@@ -9,26 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mwSaveAccessToken = mwSaveAccessToken;
+exports.mwGetAccessToken = mwGetAccessToken;
 const AccessTokens_1 = require("../../../models/AccessTokens");
-function mwSaveAccessToken(req, res) {
+function mwGetAccessToken(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const accessToken = yield AccessTokens_1.AccessToken.find({});
-            if (accessToken.length !== 0) {
-                yield AccessTokens_1.AccessToken.deleteMany({});
-            }
-            const newAccessToken = new AccessTokens_1.AccessToken({
-                etsy_access_token: req.accessToken,
-                etsy_refresh_token: req.refreshToken,
-            });
-            const token = yield newAccessToken.save();
-            res.status(200).json({ token });
+            const { etsy_access_token } = yield AccessTokens_1.AccessToken.findOne();
+            req.accessToken = etsy_access_token;
+            next();
         }
         catch (e) {
-            console.error(e);
-            res.status(500).json({ error: "Failed to save access token", details: e });
+            res.status(500).json({ error: e });
         }
     });
 }
-//# sourceMappingURL=saveAccessToken.js.map
+//# sourceMappingURL=getAccessToken.js.map
