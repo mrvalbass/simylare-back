@@ -73,56 +73,6 @@ interface ShippingProfile {
   international_handling_fee: number;
 }
 
-interface Shop {
-  shop_id: number;
-  user_id: number;
-  shop_name: string;
-  create_date: number;
-  created_timestamp: number;
-  title: string;
-  announcement: string;
-  currency_code: string;
-  is_vacation: boolean;
-  vacation_message: string;
-  sale_message: string;
-  digital_sale_message: string;
-  update_date: number;
-  updated_timestamp: number;
-  listing_active_count: number;
-  digital_listing_count: number;
-  login_name: string;
-  accepts_custom_requests: boolean;
-  policy_welcome: string;
-  policy_payment: string;
-  policy_shipping: string;
-  policy_refunds: string;
-  policy_additional: string;
-  policy_seller_info: string;
-  policy_update_date: number;
-  policy_has_private_receipt_info: boolean;
-  has_unstructured_policies: boolean;
-  policy_privacy: string;
-  vacation_autoreply: string;
-  url: string;
-  image_url_760x100: string;
-  num_favorers: number;
-  languages: string[];
-  icon_url_fullxfull: string;
-  is_using_structured_policies: boolean;
-  has_onboarded_structured_policies: boolean;
-  include_dispute_form_link: boolean;
-  is_direct_checkout_onboarded: boolean;
-  is_etsy_payments_onboarded: boolean;
-  is_calculated_eligible: boolean;
-  is_opted_in_to_buyer_promise: boolean;
-  is_shop_us_based: boolean;
-  transaction_sold_count: number;
-  shipping_from_country_iso: string;
-  shop_location_country_iso: string;
-  review_count: number;
-  review_average: number;
-}
-
 interface ProductionPartner {
   production_partner_id: number;
   partner_name: string;
@@ -180,11 +130,11 @@ export interface Listing {
   price: Price;
   taxonomy_id: number;
   shipping_profile: ShippingProfile;
-  shop: Shop;
   production_partners: ProductionPartner[];
   skus: string[];
-  images: ListingImage[];
   views: number;
+  shop: null;
+  images: ListingImage[];
   videos: null;
   user: null;
   translations: null;

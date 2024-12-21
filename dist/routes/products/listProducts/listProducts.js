@@ -32,13 +32,15 @@ function mwListProducts(req, res) {
                 tags: product.tags,
                 materials: product.materials,
                 price: `${product.price.amount / product.price.divisor} ${product.price.currency_code}`,
+                imgUrls: product.images
+                    .sort((imageA, imageB) => imageA.rank - imageB.rank)
+                    .map((image) => image.url_fullxfull),
             }));
-            console.log(shopData.results);
-            res.json(shopData.results);
+            res.json(productList);
         }
         catch (error) {
             console.error(((_a = error.response) === null || _a === void 0 ? void 0 : _a.data) || error.message);
-            res.status(500).send("Error during OAuth flow");
+            res.status(500).json({ error });
         }
     });
 }

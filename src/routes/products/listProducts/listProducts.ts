@@ -27,12 +27,13 @@ export async function mwListProducts(req: ListProductsRequest, res: Response) {
         price: `${product.price.amount / product.price.divisor} ${
           product.price.currency_code
         }`,
+        imgUrls: product.images
+          .sort((imageA, imageB) => imageA.rank - imageB.rank)
+          .map((image) => image.url_fullxfull),
       }));
-    console.log(shopData.results);
-
-    res.json(shopData.results);
+    res.json(productList);
   } catch (error) {
     console.error(error.response?.data || error.message);
-    res.status(500).send("Error during OAuth flow");
+    res.status(500).json({ error });
   }
 }
