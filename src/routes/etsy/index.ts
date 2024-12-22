@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { auth } from "./auth";
 import crypto from "crypto";
-import { saveAccessToken } from "./saveAccessToken";
+import { saveAccessToken } from "../etsy/saveAccessToken";
 
 export const etsyRouter = Router();
 

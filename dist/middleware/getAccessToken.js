@@ -59,7 +59,7 @@ function mwGetAccessToken(req, res, next) {
                 expires_in: response.expires_in,
             });
             const token = yield newAccessToken.save();
-            res.status(200).json({ token });
+            res.status(200).json({ message: "token saved", token });
         }
         catch (e) {
             console.error(e);

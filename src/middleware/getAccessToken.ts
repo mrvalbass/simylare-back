@@ -59,7 +59,7 @@ export async function mwGetAccessToken(
       expires_in: response.expires_in,
     });
     const token = await newAccessToken.save();
-    res.status(200).json({ token });
+    res.status(200).json({ message: "token saved", token });
   } catch (e: unknown) {
     console.error(e);
     res.status(500).send(e);
