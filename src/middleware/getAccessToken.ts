@@ -44,6 +44,10 @@ export function mwGetAccessToken(codeVerifier?: string) {
         getTokenOptions
       ).then((r) => r.json());
 
+      if (!response.access_token) {
+        throw new Error("No access token provided");
+      }
+
       const accessTokens = await AccessToken.find();
       if (accessTokens.length !== 0) {
         await AccessToken.deleteMany({});
@@ -56,9 +60,9 @@ export function mwGetAccessToken(codeVerifier?: string) {
       });
       const token = await newAccessToken.save();
       res.status(200).json({ message: "token saved", token });
-    } catch (e: unknown) {
+    } catch (e) {
       console.error(e);
-      res.status(500).send(e);
+      res.status(500).json({ error: e.message });
     }
     next();
   };

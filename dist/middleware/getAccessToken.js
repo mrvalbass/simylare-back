@@ -48,6 +48,9 @@ function mwGetAccessToken(codeVerifier) {
                 };
             }
             const response = yield fetch("https://api.etsy.com/v3/public/oauth/token", getTokenOptions).then((r) => r.json());
+            if (!response.access_token) {
+                throw new Error("No access token provided");
+            }
             const accessTokens = yield AccessTokens_1.AccessToken.find();
             if (accessTokens.length !== 0) {
                 yield AccessTokens_1.AccessToken.deleteMany({});
@@ -62,7 +65,7 @@ function mwGetAccessToken(codeVerifier) {
         }
         catch (e) {
             console.error(e);
-            res.status(500).send(e);
+            res.status(500).json({ error: e.message });
         }
         next();
     });

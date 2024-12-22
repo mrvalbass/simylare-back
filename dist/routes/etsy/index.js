@@ -7,12 +7,12 @@ exports.sha256 = exports.codeVerifier = exports.state = exports.etsyRouter = voi
 const express_1 = require("express");
 const auth_1 = require("./auth");
 const crypto_1 = __importDefault(require("crypto"));
-// import { saveAccessToken } from "./saveAccessToken";
+const saveAccessToken_1 = require("./saveAccessToken");
 exports.etsyRouter = (0, express_1.Router)();
 exports.state = crypto_1.default.randomBytes(16).toString("hex");
 exports.codeVerifier = crypto_1.default.randomBytes(32).toString("base64url");
 const sha256 = (buffer) => crypto_1.default.createHash("sha256").update(buffer).digest("base64url");
 exports.sha256 = sha256;
 exports.etsyRouter.get("/auth", (0, auth_1.auth)());
-// etsyRouter.get("/accessToken", saveAccessToken());
+exports.etsyRouter.get("/accessToken", (0, saveAccessToken_1.saveAccessToken)());
 //# sourceMappingURL=index.js.map
