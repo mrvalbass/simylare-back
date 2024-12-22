@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { auth } from "./auth";
-import { saveAccessToken } from "./SaveAccessToken";
+import { refreshAccessToken, saveAccessToken } from "./saveAccessToken";
 import crypto from "crypto";
 
 export const etsyRouter = Router();
@@ -11,4 +11,5 @@ export const sha256 = (buffer: string) =>
   crypto.createHash("sha256").update(buffer).digest("base64url");
 
 etsyRouter.get("/auth", auth());
-etsyRouter.get("/accessToken", saveAccessToken());
+etsyRouter.get("/getAccessToken", saveAccessToken());
+etsyRouter.get("/refreshAccessToken", refreshAccessToken());

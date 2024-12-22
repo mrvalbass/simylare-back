@@ -1,7 +1,7 @@
-import { mwGetAccessToken } from "./getAccessToken";
-import { mwCheckState } from "./checkState";
-import { mwSaveAccessToken } from "./saveAccessToken";
 import { Request } from "express";
+import { mwCheckState } from "./checkState";
+import { mwGetAccessToken } from "../../../middleware/getAccessToken";
+import { mwSaveAccessToken } from "./saveAccessToken";
 
 export interface AccessTokenRequest extends Request {
   accessToken: string;
@@ -14,3 +14,5 @@ export const saveAccessToken = () => [
   mwGetAccessToken,
   mwSaveAccessToken,
 ];
+
+export const refreshAccessToken = () => [mwGetAccessToken, mwSaveAccessToken];

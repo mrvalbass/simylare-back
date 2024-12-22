@@ -10,13 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mwListProducts = mwListProducts;
+const AccessTokens_1 = require("../../../models/AccessTokens");
 function mwListProducts(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            let { etsy_access_token } = yield AccessTokens_1.AccessToken.findOne();
             const getDataOptions = {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${req.accessToken}`,
+                    Authorization: `Bearer ${etsy_access_token}`,
                     "x-api-key": process.env.CLIENT_ID,
                 },
             };
