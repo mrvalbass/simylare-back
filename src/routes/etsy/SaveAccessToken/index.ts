@@ -7,5 +7,3 @@ export const saveAccessToken = () => [
   mwGetAccessToken,
   mwSaveAccessToken,
 ];
-
-export const refreshAccessToken = () => [mwGetAccessToken, mwSaveAccessToken];

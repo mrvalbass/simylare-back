@@ -1,9 +1,8 @@
-import type { Response } from "express";
+import type { Request, Response } from "express";
 import type { Listing, ListingResponse } from "./types";
-import { ListProductsRequest } from ".";
 import { AccessToken } from "../../../models/AccessTokens";
 
-export async function mwListProducts(req: ListProductsRequest, res: Response) {
+export async function mwListProducts(req: Request, res: Response) {
   try {
     let { etsy_access_token } = await AccessToken.findOne();
     const getDataOptions = {
