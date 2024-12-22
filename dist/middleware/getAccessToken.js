@@ -10,13 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mwGetAccessToken = mwGetAccessToken;
-const etsy_1 = require("../routes/etsy");
 const AccessTokens_1 = require("../models/AccessTokens");
-function mwGetAccessToken(req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
+function mwGetAccessToken(codeVerifier) {
+    return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
         try {
             let getTokenOptions;
-            if (req.query) {
+            if (codeVerifier) {
                 // request for a new token
                 const { code } = req.query;
                 getTokenOptions = {
@@ -27,7 +26,7 @@ function mwGetAccessToken(req, res, next) {
                         client_id: process.env.CLIENT_ID,
                         redirect_uri: process.env.REDIRECT_URI,
                         code: code,
-                        code_verifier: etsy_1.codeVerifier,
+                        code_verifier: codeVerifier,
                     }),
                 };
             }
