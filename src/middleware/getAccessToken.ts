@@ -1,7 +1,7 @@
 import type { NextFunction, Response } from "express";
 import { codeVerifier } from "../routes/etsy";
-import { AccessTokenRequest } from "../routes/etsy/saveAccessToken";
 import { AccessToken } from "../models/AccessTokens";
+import { AccessTokenRequest } from "../routes/etsy/saveAccessToken";
 
 export async function mwGetAccessToken(
   req: AccessTokenRequest,
