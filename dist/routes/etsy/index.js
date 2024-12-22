@@ -14,5 +14,5 @@ exports.codeVerifier = crypto_1.default.randomBytes(32).toString("base64url");
 const sha256 = (buffer) => crypto_1.default.createHash("sha256").update(buffer).digest("base64url");
 exports.sha256 = sha256;
 exports.etsyRouter.get("/auth", (0, auth_1.auth)());
-exports.etsyRouter.get("/getAccessToken", (0, saveAccessToken_1.saveAccessToken)());
+exports.etsyRouter.get("/accessToken", (0, saveAccessToken_1.saveAccessToken)());
 //# sourceMappingURL=index.js.map

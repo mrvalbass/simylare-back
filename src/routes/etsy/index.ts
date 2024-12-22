@@ -11,4 +11,4 @@ export const sha256 = (buffer: string) =>
   crypto.createHash("sha256").update(buffer).digest("base64url");
 
 etsyRouter.get("/auth", auth());
-etsyRouter.get("/getAccessToken", saveAccessToken());
+etsyRouter.get("/accessToken", saveAccessToken());

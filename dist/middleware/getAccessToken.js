@@ -17,6 +17,7 @@ function mwGetAccessToken(req, res, next) {
         try {
             let getTokenOptions;
             if (req.query) {
+                // request for a new token
                 const { code } = req.query;
                 getTokenOptions = {
                     method: "POST",
@@ -31,6 +32,7 @@ function mwGetAccessToken(req, res, next) {
                 };
             }
             else {
+                //request to refresh a token
                 let { created_at, expires_in, etsy_refresh_token } = yield AccessTokens_1.AccessToken.findOne();
                 if (Date.now() - expires_in * 1000 <= created_at.getTime()) {
                     next();
@@ -47,9 +49,17 @@ function mwGetAccessToken(req, res, next) {
                 };
             }
             const response = yield fetch("https://api.etsy.com/v3/public/oauth/token", getTokenOptions).then((r) => r.json());
-            req.accessToken = response.access_token;
-            req.refreshToken = response.refresh_token;
-            req.expiresIn = response.expires_in;
+            const accessTokens = yield AccessTokens_1.AccessToken.find();
+            if (accessTokens.length !== 0) {
+                yield AccessTokens_1.AccessToken.deleteMany({});
+            }
+            const newAccessToken = new AccessTokens_1.AccessToken({
+                etsy_access_token: response.access_token,
+                etsy_refresh_token: response.refresh_token,
+                expires_in: response.expires_in,
+            });
+            const token = yield newAccessToken.save();
+            res.status(200).json({ token });
         }
         catch (e) {
             console.error(e);
