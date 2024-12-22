@@ -1,6 +1,6 @@
 import type { Response } from "express";
 import { AccessToken } from "../../../models/AccessTokens";
-import { AccessTokenRequest } from ".";
+import { AccessTokenRequest } from "index";
 
 export async function mwSaveAccessToken(
   req: AccessTokenRequest,
