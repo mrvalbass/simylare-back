@@ -24,17 +24,17 @@ function mwSendEmail(transporter) {
         const mailOptions = {
             from: "site@simylare.com",
             to: process.env.EMAIL_USER,
+            replyTo: req.body.email,
             subject: "Contact depuis le site web",
             text: `Nom : ${req.body.name}\nEmail : ${req.body.email}\nMessage : ${req.body.message}`,
         };
         try {
-            const info = yield transporter.sendMail(mailOptions);
-            console.log(info);
+            yield transporter.sendMail(mailOptions);
             res.json({ success: true, message: "email sent" });
         }
         catch (e) {
             console.log("Error while sending email :", e);
-            res.json({ success: false, message: "error when sending email" });
+            res.json({ success: false, message: `error when sending email: ${e}` });
         }
     });
 }
