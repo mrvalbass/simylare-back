@@ -21,16 +21,36 @@ function mwSendEmail(transporter) {
             res.json("Error in transporter configuration");
             return;
         }
-        const mailOptions = {
+        const { name, email, message } = req.body;
+        const customerText = `
+Bonjour ${name},
+
+Merci d'avoir contacté Simylare.
+Votre message nous a bien été transmis, nous vous répondrons dans les meilleurs délais
+
+Jimmy de Simylare`;
+        const customerMailOptions = {
+            from: "noreply@simylare.com",
+            to: email,
+            subject: "Merci d'avoir contacté Simylare",
+            text: customerText,
+        };
+        const ownerMailOptions = {
             from: "site@simylare.com",
             to: process.env.EMAIL_USER,
-            replyTo: req.body.email,
+            replyTo: email,
             subject: "Contact depuis le site web",
-            text: `Nom : ${req.body.name}\nEmail : ${req.body.email}\nMessage : ${req.body.message}`,
+            text: `Nom : ${name}\nEmail : ${email}\nMessage : ${message}`,
         };
         try {
-            yield transporter.sendMail(mailOptions);
-            res.json({ success: true, message: "email sent" });
+            const response = yield transporter.sendMail(customerMailOptions);
+            if (response.accepted.includes(email)) {
+                yield transporter.sendMail(ownerMailOptions);
+                res.json({ success: true, message: "email sent" });
+            }
+            else {
+                throw new Error(`Email not valid : ${email}`);
+            }
         }
         catch (e) {
             console.log("Error while sending email :", e);
